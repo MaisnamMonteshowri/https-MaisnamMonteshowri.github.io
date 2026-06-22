@@ -2,24 +2,26 @@
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-// Close menu when a link is clicked (on mobile)
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
     });
-});
+
+    // Close menu when a link is clicked (on mobile)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+}
 
 // ===== CONTACT FORM =====
 const form = document.getElementById('contact-form');
 const formStatus = document.getElementById('form-status');
 
-if (form) {
+if (form && formStatus) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -43,10 +45,8 @@ if (form) {
                 formStatus.style.color = '#50C878';
                 form.reset();
             } else {
-                const errorData = await response.json();
                 formStatus.textContent = '❌ Oops! Something went wrong. Please try again later.';
                 formStatus.style.color = '#FF6B6B';
-                console.error('Formspree error:', errorData);
             }
         } catch (error) {
             formStatus.textContent = '❌ Network error. Please check your connection.';
